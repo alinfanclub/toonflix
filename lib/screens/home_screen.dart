@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:toonflix/models/webtoon.dart';
+import 'package:toonflix/services/api_service.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
+  Future<List<WebtoonModel>> webtoons = ApiService.getTodaysToons();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +20,16 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.green,
         elevation: 1,
+      ),
+      body: FutureBuilder(
+        future: webtoons,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const Text("there is data");
+          } else {
+            return const Text("loading....");
+          }
+        },
       ),
     );
   }
