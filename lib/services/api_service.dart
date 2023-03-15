@@ -43,6 +43,7 @@ class ApiService {
       final episodes = jsonDecode(response.body);
       for (var episode in episodes) {
         episodesInstance.add(WebtoonEpisodeModel.fromJson(episode));
+        print(episode);
       }
       return episodesInstance;
     }
